@@ -22,6 +22,5 @@ class GloomPy:
         draw_cursor_cell(pyxel.COLOR_YELLOW)
 
 
-
 # Runs the game
 GloomPy()
