@@ -1,26 +1,32 @@
 from hexlib import *
+from objects import *
 
 def load_grid_file(file):
-    grid = []
+    grid = {}
     with open(file, "r") as f:
         for row, line in enumerate(f.readlines()):
             for col, char in enumerate(line):
                 if char == ".":
-                    grid.append(DoubledCoord(col+2, row+1))
+                    grid[rdoubled_to_cube(DoubledCoord(col+2, row+1))] = default_hex_data
 
     return grid
 
-file = "chapter1.txt"
-_grid = load_grid_file(file)
 
-# grid now in cube coordinates
-grid = [rdoubled_to_cube(hex) for hex in _grid]
-
-# def optimize_grid(_grid):
-#     grid = []
-#     for hex in _grid:
-#         grid.append(polygon_corners(normal_layout, hex)
-# 
-#     return grid
+def assign_position(char, hex, positions):
+    try:
+        positions.remove(char.position)
+    except:
+        pass
+    
+    char.position = hex
+    positions.append(hex)
 
 
+
+def test():
+    file = "chapter1.txt"
+    grid = load_grid_file(file)
+    for hex in grid:
+        print(grid[hex].block_direction)
+
+# test()

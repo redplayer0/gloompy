@@ -15,14 +15,14 @@ layout = Layout(layout_pointy, hex_size, camera)
 def adjust_camera():
     global camera
     global layout
-    if pyxel.mouse_x > width:
-        camera = Point(camera.x - 1, camera.y)
-    if pyxel.mouse_y > height:
-        camera = Point(camera.x ,camera.y - 1)
-    if pyxel.mouse_x < 0:
-        camera = Point(camera.x + 1, camera.y)
-    if pyxel.mouse_y < 0:
-        camera = Point(camera.x ,camera.y + 1)
+    if pyxel.btn(pyxel.KEY_RIGHT):
+        camera = Point(camera.x - 5, camera.y)
+    if pyxel.btn(pyxel.KEY_DOWN):
+        camera = Point(camera.x ,camera.y - 5)
+    if pyxel.btn(pyxel.KEY_LEFT):
+        camera = Point(camera.x + 5, camera.y)
+    if pyxel.btn(pyxel.KEY_UP):
+        camera = Point(camera.x ,camera.y + 5)
     layout = Layout(layout_pointy, hex_size, camera)
 
 
@@ -50,3 +50,21 @@ def draw_cursor_cell(color):
         layout, Point(pyxel.mouse_x, pyxel.mouse_y)))
     active_corners = polygon_corners(layout, active_hex)
     draw_hex(active_corners, color)
+
+
+def draw_characters(chars):
+    for char in chars:
+        #TODO add a try block in case a char does not have a valid position
+        p = hex_to_pixel(layout, char.position)
+        pyxel.blt(
+                p.x - hex_size.x/2,
+                p.y - hex_size.y/2,
+                0,
+                char.sprite.row*16,
+                char.sprite.col*16,
+                16,
+                16,
+                pyxel.COLOR_BLACK,
+)
+        
+       
