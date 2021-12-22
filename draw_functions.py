@@ -9,12 +9,12 @@ height = 260
 camera = Point(0, 0)
 hex_size = Point(14, 14)
 # Layouts
-normal_layout = Layout(layout_pointy, hex_size, camera)
+layout = Layout(layout_pointy, hex_size, camera)
 
 # TODO adjust camera with keys instead of cursor position
 def adjust_camera():
     global camera
-    global normal_layout
+    global layout
     if pyxel.mouse_x > width:
         camera = Point(camera.x - 1, camera.y)
     if pyxel.mouse_y > height:
@@ -23,7 +23,7 @@ def adjust_camera():
         camera = Point(camera.x + 1, camera.y)
     if pyxel.mouse_y < 0:
         camera = Point(camera.x ,camera.y + 1)
-    normal_layout = Layout(layout_pointy, hex_size, camera)
+    layout = Layout(layout_pointy, hex_size, camera)
 
 
 # Draws a hex by drawing lines connecting all corners.
@@ -41,12 +41,12 @@ def draw_hex(hex_corners, color):
 
 def draw_grid(grid, color):  # TODO refactor to draw_hex and rename it to draw_grid maybe
     for hex in grid:
-        hex_corners = polygon_corners(normal_layout, hex)
+        hex_corners = polygon_corners(layout, hex)
         draw_hex(hex_corners, color)
 
 
 def draw_cursor_cell(color):
     active_hex = hex_round(pixel_to_hex(
-        normal_layout, Point(pyxel.mouse_x, pyxel.mouse_y)))
-    active_corners = polygon_corners(normal_layout, active_hex)
+        layout, Point(pyxel.mouse_x, pyxel.mouse_y)))
+    active_corners = polygon_corners(layout, active_hex)
     draw_hex(active_corners, color)

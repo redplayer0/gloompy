@@ -8,7 +8,7 @@ from loader import *
 # Main class wrapping pyxel
 class GloomPy:
     def __init__(self):
-        pyxel.init(width, height)
+        pyxel.init(width, height, title="GloomPy")
         pyxel.load("my_resource.pyxres")
         # pyxel.clip(200, 200, 200, 200)
         pyxel.mouse(True)
@@ -23,8 +23,8 @@ class GloomPy:
         pyxel.cls(pyxel.COLOR_WHITE)
         draw_grid(grid, pyxel.COLOR_BROWN)
         draw_cursor_cell(pyxel.COLOR_YELLOW)
-        pyxel.blt(pyxel.mouse_x, pyxel.mouse_y, 0, 0, 0, 16, 16, pyxel.COLOR_BLACK)
-        pyxel.text(width - 100, height - 20, f"x:{pyxel.mouse_x} y:{pyxel.mouse_y}", pyxel.COLOR_BLACK)
+        # pyxel.blt(pyxel.mouse_x, pyxel.mouse_y, 0, 0, 0, 16, 16, pyxel.COLOR_BLACK)
+        pyxel.text(0, 0, f"x:{pyxel.mouse_x} y:{pyxel.mouse_y}", pyxel.COLOR_BLACK)
 
 
 # Runs the game
