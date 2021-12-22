@@ -8,13 +8,12 @@ Point = namedtuple("Point", ["x", "y"])
 
 Hex = namedtuple("Hex", ["q", "r", "s"])
 
-DoubledCoord = namedtuple("DoubledCoord", ["col", "row"])
-
 Orientation = namedtuple(
     "Orientation", ["f0", "f1", "f2", "f3", "b0", "b1", "b2", "b3", "start_angle"])
 
 Layout = namedtuple("Layout", ["orientation", "size", "origin"])
 
+DoubledCoord = namedtuple("DoubledCoord", ["col", "row"])
 
 def qdoubled_from_cube(h):
     col = h.q
