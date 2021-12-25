@@ -1,10 +1,10 @@
 from collections import namedtuple
 
-import pyxel
-
 from hexlib import *
+from settings import *
 
 HexData = namedtuple("HexData", ["id", "door", "block_direction", "trap", "loot"])
+# TODO add corner set
 default_hex_data = HexData(
                         id=None,
                         door=None,
@@ -14,7 +14,6 @@ default_hex_data = HexData(
 )
 
 Sprite = namedtuple("Sprite", ["row", "col"])
-
 
 
 class Character:

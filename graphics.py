@@ -1,16 +1,10 @@
 # Useful drawing functions
-
 import pyxel
 
 from hexlib import *
+from settings import *
 
-width = 260
-height = 260
-camera = Point(0, 0)
-hex_size = Point(14, 14)
-# Layouts
-layout = Layout(layout_pointy, hex_size, camera)
-
+    
 # TODO adjust camera with keys instead of cursor position
 def adjust_camera():
     global camera
@@ -27,32 +21,32 @@ def adjust_camera():
 
 
 # Draws a hex by drawing lines connecting all corners.
-def draw_hex(hex_corners, color):
+def draw_hex(hex, color):
+    hex_corners = polygon_corners(layout, hex)
     for p in range(5):
-        x1 = hex_corners[p].x
-        y1 = hex_corners[p].y
-        x2 = hex_corners[p+1].x
-        y2 = hex_corners[p+1].y
-        pyxel.line(x1, y1, x2, y2, color)
-    x1 = hex_corners[0].x
-    y1 = hex_corners[0].y
-    pyxel.line(x2, y2, x1, y1, color)
+        pyxel.line(hex_corners[p].x, hex_corners[p].y, hex_corners[p+1].x, hex_corners[p+1].y, color)
+    pyxel.line(hex_corners[0].x, hex_corners[0].y, hex_corners[5].x, hex_corners[5].y, color)
+
+def draw_iner_hex(hex, px, color):
+    hex_corners = polygon_corners(layout, hex)
+    pyxel.line(hex_corners[0].x-px, hex_corners[0].y, hex_corners[1].x-px, hex_corners[1].y, color)
+    pyxel.line(hex_corners[1].x-px, hex_corners[1].y, hex_corners[2].x, hex_corners[2].y+px, color)
+    pyxel.line(hex_corners[2].x, hex_corners[2].y+px, hex_corners[3].x+px, hex_corners[3].y, color)
+    pyxel.line(hex_corners[3].x+px, hex_corners[3].y, hex_corners[4].x+px, hex_corners[4].y, color)
+    pyxel.line(hex_corners[4].x+px, hex_corners[4].y, hex_corners[5].x, hex_corners[5].y-px, color)
+    pyxel.line(hex_corners[5].x, hex_corners[5].y-px, hex_corners[0].x-px, hex_corners[0].y, color)
 
 
 def draw_grid(grid, color):  # TODO refactor to draw_hex and rename it to draw_grid maybe
     for hex in grid:
-        hex_corners = polygon_corners(layout, hex)
-        draw_hex(hex_corners, color)
+        draw_hex(hex, color)
 
+def draw_iner_grid(grid, px, color):  # TODO refactor to draw_hex and rename it to draw_grid maybe
+    for hex in grid:
+        for p in range(1, px+1):
+            draw_iner_hex(hex, p, color)
 
-def draw_cursor_cell(color):
-    active_hex = hex_round(pixel_to_hex(
-        layout, Point(pyxel.mouse_x, pyxel.mouse_y)))
-    active_corners = polygon_corners(layout, active_hex)
-    draw_hex(active_corners, color)
-
-
-def draw_characters(chars):
+def draw_characters(chars, hex_size):
     for char in chars:
         #TODO add a try block in case a char does not have a valid position
         p = hex_to_pixel(layout, char.position)
@@ -67,4 +61,13 @@ def draw_characters(chars):
                 pyxel.COLOR_BLACK,
 )
         
-       
+def draw_hps(chars, hex_size):
+    for char in chars:
+        #TODO add a try block in case a char does not have a valid position
+        p = hex_to_pixel(layout, char.position)
+        pyxel.text(
+                p.x - hex_size.x/2 - 2,
+                p.y - hex_size.y/2,
+                f"{char.maxhp}/{char.hp}\nTEST",
+                pyxel.COLOR_BLACK,
+)

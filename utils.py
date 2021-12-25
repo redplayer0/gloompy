@@ -1,5 +1,6 @@
 from hexlib import *
 from objects import *
+from settings import *
 
 def load_grid_file(file):
     grid = {}
@@ -7,7 +8,8 @@ def load_grid_file(file):
         for row, line in enumerate(f.readlines()):
             for col, char in enumerate(line):
                 if char == ".":
-                    grid[rdoubled_to_cube(DoubledCoord(col+2, row+1))] = default_hex_data
+                    hex = rdoubled_to_cube(DoubledCoord(col+2, row+1))
+                    grid[hex] = default_hex_data
 
     return grid
 
@@ -20,7 +22,6 @@ def assign_position(char, hex, positions):
     
     char.position = hex
     positions.append(hex)
-
 
 
 def test():
