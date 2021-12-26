@@ -7,6 +7,7 @@ from objects import *
 from graphics import *
 from hexlib import *
 import utils
+from time import sleep
 
 class Context:
 
@@ -23,7 +24,7 @@ class Context:
 
     allies = [
         Character(
-            Sprite(1, 1),
+            Sprite(0, 0),
             "rogue",
             "Ilya",
             1,
@@ -34,7 +35,33 @@ class Context:
             [],
             [],
             [],
-        )
+        ),
+        Character(
+            Sprite(0, 1),
+            "rogue",
+            "Ilya",
+            1,
+            0,
+            11,
+            11,
+            0,
+            [],
+            [],
+            [],
+        ),
+        Character(
+            Sprite(0, 2),
+            "rogue",
+            "Ilya",
+            1,
+            0,
+            11,
+            11,
+            0,
+            [],
+            [],
+            [],
+        ),
     ]
 
     enemies = {}
@@ -71,10 +98,10 @@ class Context:
         if pyxel.btn(pyxel.KEY_DOWN):
             self._state.onButtonDown()
 
-        if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT):
+        if pyxel.btnr(pyxel.MOUSE_BUTTON_LEFT):
             self._state.onMouseLeftClick()
 
-        if pyxel.btn(pyxel.MOUSE_BUTTON_RIGHT):
+        if pyxel.btnr(pyxel.MOUSE_BUTTON_RIGHT):
             self._state.onMouseRightClick()
 
 
@@ -127,12 +154,11 @@ class LoadChapter(State):
 
 
 class AssignPositions(State):
-    # TODO how to get arround with context not being assigned first
     char = None
 
     def update(self):
         if not self.char and self._context.allies:
-            self.char = self._context.allies.pop()
+            self.char = self._context.allies.pop(0)
         if not self.char and not self._context.allies:
             self._context.setState(SelectCards())
     

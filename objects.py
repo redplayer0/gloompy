@@ -13,7 +13,7 @@ default_hex_data = HexData(
                         loot=False,
 )
 
-Sprite = namedtuple("Sprite", ["row", "col"])
+Sprite = namedtuple("Sprite", ["col", "row"])
 
 
 class Character:

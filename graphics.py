@@ -34,7 +34,6 @@ def draw_characters(char_positions, layout, hex_size):
                 pyxel.COLOR_BLACK,
             )
 
-
 def draw_char(char):
     pyxel.blt(pyxel.mouse_x, pyxel.mouse_y, 0, char.sprite.row*16, char.sprite.col*16, 16, 16, pyxel.COLOR_BLACK)
 
