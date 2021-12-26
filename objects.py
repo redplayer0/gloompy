@@ -1,8 +1,8 @@
 from collections import namedtuple
 
 from hexlib import *
-from settings import *
 
+# Hex related data structures
 HexData = namedtuple("HexData", ["id", "door", "block_direction", "trap", "loot"])
 # TODO add corner set
 default_hex_data = HexData(
@@ -29,8 +29,8 @@ class Character:
         self.attack_deck = attack_deck
         self.player_deck = player_deck
         self.perks = perks
-        self.position = Hex(None, None, None)
         self.status = None
+        self.inplay = False
         
 
 class AttackDeck:

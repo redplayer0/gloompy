@@ -1,6 +1,5 @@
 from hexlib import *
 from objects import *
-from settings import *
 
 def load_grid_file(file):
     grid = {}
@@ -16,18 +15,10 @@ def load_grid_file(file):
 
 def assign_position(char, hex, positions):
     try:
-        positions.remove(char.position)
+        positions.remove(hex)
     except:
         pass
     
-    char.position = hex
-    positions.append(hex)
+    positions[hex] = char
 
 
-def test():
-    file = "chapter1.txt"
-    grid = load_grid_file(file)
-    for hex in grid:
-        print(grid[hex].block_direction)
-
-# test()
